@@ -27,6 +27,7 @@ public class SequenceListener extends Thread {
 					listenView.endScreen();
 				}
 				this.in.sequenceInput = this.RESET;
+				in.delay(500);
 				this.generated=in.generateSequence();
 
 			}
