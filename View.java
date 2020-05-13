@@ -35,6 +35,10 @@ public class View extends JPanel{
 		repaint();
 		
 	}
+	public void startScreen() {
+		title.setText("Simon Says");
+		repaint();
+	}
 	public void correctScreen() {
 		title.setText("That is correct good jub slut");
 		repaint();
