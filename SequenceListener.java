@@ -1,41 +1,56 @@
 package SimonSays;
 
 public class SequenceListener extends Thread {
-	private ColourSquare[] squares;
-	private View listenView;
-	
+	private View view;
+	private float level;
 	public int[] generated; // generated sequence
-	private final int[] RESET = {5,5,5,5}; // reset default user input sequence arr
-	private int state;
 	private SequenceGenerator in;
-	public SequenceListener(ColourSquare[] squares, SequenceGenerator in,View view) {
-		this.squares = squares;
-		this.in=squares[0].in;
-		this.listenView=view;
-	
+	public SequenceListener(SequenceGenerator in, View view) {
+		this.in=in;
+		this.view=view;
+		if(view.hard)
+			generated=in.generateSequence(this.view.sequenceInput.length);
+		else
+			generated=in.easySequence();
+		this.level=1f;
 	}
 	
 	@Override
 	public void run() {
-		while(true) {
-			System.out.println("");
-			if(this.in.sequenceInput[3] != 5) {
-				if(Utils.areEqual(this.generated,this.in.sequenceInput)) {
-					listenView.correctScreen();
+		while(true) {		
+			System.out.print("");//necessary for the thread to be running 
+			if(this.view.sequenceInput[this.view.reset.length-1] != 5) {
+				this.view.pause();
+				if(Utils.areEqual(this.generated, this.view.sequenceInput)) {
+					level++;
+					in.changeDelay((int) ((1f/level)*1000));
+					
+					view.changeTitle("Correct");
+					Utils.delay(1000);
 				}
 				else {
-					listenView.endScreen();
+					view.changeTitle("Incorrect");
+					Utils.delay(1000);
+					view.changeTitle("Game Over");
+					Utils.delay(1000);
+					System.exit(0);
 				}
-				this.in.sequenceInput = this.RESET;
-				in.delay(500);
-				listenView.startScreen();
-				this.generated=in.generateSequence();
 
+				this.view.sequenceInput = Utils.increase(this.view.sequenceInput);
+				this.view.reset=Utils.increase(this.view.reset);
+				Utils.delay(500);
+				view.changeTitle("Simon Says");
+				
+				if(view.hard)
+					generated=in.generateSequence(this.view.sequenceInput.length);
+				else
+					generated=in.easySequence();
+				
 			}
 			
 		}
 		
 	}//run method
-	
+
 	
 }

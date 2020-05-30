@@ -6,46 +6,70 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SequenceGenerator {
-	View g=new View();
-	ColourSquare[] squares=new ColourSquare[4];
-	private final int LENGTH = 4;
-	private int level;
+
+	private View b;
+	private int delay;
 	private Random rand = new Random();
-	int[] sequenceInput = {5,5,5,5};
+	private int[] sequence=new int[] {rand.nextInt(4)};
 	
-	public SequenceGenerator(int level,View view) {
-		this.level = level;
-		g.setLayout(new GridLayout(2,2));
-		squares[0]=new ColourSquare(Color.RED,0,this,g);
-		squares[1]=new ColourSquare(Color.YELLOW,1,this,g);
-		squares[2]=new ColourSquare(Color.BLUE,2,this,g);
-		squares[3]=new ColourSquare(Color.GREEN,3,this,g);
-		view.init();
-		view.a.add(g);
+	public SequenceGenerator(View view) {
+		b=view;
+		this.delay = 1000;
 		
 	}
 	
-	public int[] generateSequence() {
+	public int[] generateSequence(int length) {
 		int temp;
-		int[] sequence = new int[this.LENGTH];
-		for(int i = 0; i < this.LENGTH; ++i) {
-			temp = this.rand.nextInt(this.LENGTH);
+		int[] sequence = new int[length];
+		
+
+		b.pause();
+		for(int i = 0; i < length; ++i) {
+			temp = this.rand.nextInt(4);
 			sequence[i] = temp;
-			this.squares[temp].glow();
-			delay(500);
-			this.squares[temp].unglow();
-			delay(500);
+			b.changeTitle(b.squares[temp].name);
+			b.squares[temp].glow();
+			Utils.delay(this.delay);
+			b.squares[temp].unglow();
+			Utils.delay(this.delay);
 		}
+		
+		b.resume();
+		
+		b.changeTitle("Simon Says");
 		return sequence;
 	}
 	
-	public void delay(int ms) {
-		try {
-			Thread.sleep(ms);
-		}
-		catch(InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void changeDelay(int time) {
+		delay=time;
 	}
+	
+	public int[] easySequence() {
+		int temp;
+		sequence=Utils.increased(sequence);
+		
+		sequence[sequence.length-1]=rand.nextInt(4);
+
+		b.pause();
+		for(int i=0;i<sequence.length;i++) {
+			System.out.println(sequence[i]);
+			temp=sequence[i];
+			b.changeTitle(b.squares[temp].name);
+			b.squares[temp].glow();
+			Utils.delay(this.delay);
+			b.squares[temp].unglow();
+			Utils.delay(this.delay);
+		}
+		
+		b.resume();
+		
+		b.changeTitle("Simon Says");
+		
+		return sequence;
+		
+	}
+	
+	
+	
 	
 }
