@@ -7,7 +7,7 @@ public class GraphicalOutput {
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		View view = new View();
+		Screen view = new Screen();
 		SequenceGenerator gen = new SequenceGenerator(view); //enter level here for testing
 
 		

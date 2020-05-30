@@ -1,11 +1,11 @@
 package SimonSays;
 
 public class SequenceListener extends Thread {
-	private View view;
+	private Screen view;
 	private float level;
 	public int[] generated; // generated sequence
 	private SequenceGenerator in;
-	public SequenceListener(SequenceGenerator in, View view) {
+	public SequenceListener(SequenceGenerator in, Screen view) {
 		this.in=in;
 		this.view=view;
 		if(view.hard)

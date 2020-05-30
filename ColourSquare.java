@@ -16,8 +16,8 @@ public class ColourSquare extends JComponent implements MouseListener {
 	String name;
 	Color mainColour;
 	int id;
-	private View view;
-	public ColourSquare(Color colour, JPanel j, View view) {
+	private Screen view;
+	public ColourSquare(Color colour, JPanel j, Screen view) {
 		super();
 		
 		j.add(this);

@@ -7,12 +7,12 @@ import javax.swing.*;
 
 public class SequenceGenerator {
 
-	private View b;
+	private Screen b;
 	private int delay;
 	private Random rand = new Random();
 	private int[] sequence=new int[] {rand.nextInt(4)};
 	
-	public SequenceGenerator(View view) {
+	public SequenceGenerator(Screen view) {
 		b=view;
 		this.delay = 1000;
 		
