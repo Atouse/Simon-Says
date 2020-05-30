@@ -50,11 +50,6 @@ public class View extends JPanel{
 		this.add(a);
 	}
 	
-	public void startScreen() {
-		title.setText("Simon Says");
-		repaint();
-	}
-	
 	public void pause() {
 		for(int i=0;i<4;i++) {
 			squares[i].removeMouseListener(squares[i]);
