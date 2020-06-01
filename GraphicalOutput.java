@@ -18,7 +18,6 @@ public class GraphicalOutput {
 		frame.setVisible(true);
 		
 		
-		//somewhere here
 		SequenceListener in = new SequenceListener(gen,view);
 		in.start();
 	}

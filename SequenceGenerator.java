@@ -14,7 +14,10 @@ public class SequenceGenerator {
 	
 	public SequenceGenerator(Screen view) {
 		b=view;
-		this.delay = 1000;
+		if(view.hard)
+			this.delay = 1000;
+		else
+			this.delay = 500;
 		
 	}
 	
@@ -29,6 +32,7 @@ public class SequenceGenerator {
 			sequence[i] = temp;
 			b.changeTitle(b.squares[temp].name);
 			b.squares[temp].glow();
+			Utils.play("Flash");
 			Utils.delay(this.delay);
 			b.squares[temp].unglow();
 			Utils.delay(this.delay);
@@ -52,10 +56,10 @@ public class SequenceGenerator {
 
 		b.pause();
 		for(int i=0;i<sequence.length;i++) {
-			System.out.println(sequence[i]);
 			temp=sequence[i];
 			b.changeTitle(b.squares[temp].name);
 			b.squares[temp].glow();
+			Utils.play("Flash");
 			Utils.delay(this.delay);
 			b.squares[temp].unglow();
 			Utils.delay(this.delay);
